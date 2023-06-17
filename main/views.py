@@ -22,7 +22,7 @@ def sensordata_table(request):
     
 
 @csrf_exempt  
-def postData(request,moisture):
+def postData(request,moisture,level,temperature,humidity):
     
     try:
    
@@ -30,6 +30,6 @@ def postData(request,moisture):
     #  if datas:
      status = 'true'
 
-     return JsonResponse({'status':moisture})
+     return JsonResponse({'status':humidity})
     except:
       return JsonResponse({'status':'false'})  
