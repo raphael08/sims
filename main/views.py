@@ -25,11 +25,14 @@ def sensordata_table(request):
 def postData(request,moisture,level,temperature,humidity):
     
     try:
-   
-    #  datas = Sensordata.objects.create(humidity_val=humidity,temperature_val=temperature,moisture_val=moisture,waterLevel_val=level)
-    #  if datas:
-     status = 'true'
+     if moisture != '' and level != '' and temperature != '' and humidity != '':
+      datas = Sensordata.objects.create(humidity_val=humidity,temperature_val=temperature,moisture_val=moisture,waterLevel_val=level)
+      if datas:
+        status = True
 
-     return JsonResponse({'status':humidity})
+      return JsonResponse({'status':status})
+     else:
+       return JsonResponse({'status':'null'})
     except:
-      return JsonResponse({'status':'false'})  
+      status = False
+      return JsonResponse({'status':status})  
