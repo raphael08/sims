@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sensor Data Table</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+      .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+      .safe {
+        background-color: #055316;
+        color: #eff7f1;
+        border: 1px solid #c3e6cb;
+      }
+      .not-safe {
+        background-color: #ff0015;
+        color: #f5eff0;
+        border: 1px solid #f5c6cb;
+        animation: blink 1s infinite;
+      }
+      p.warning {
+        background-color: #ffdd99;
+        border: 1px solid #ff9900;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 20px;
+        font-weight: bold;
+      }
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .message {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-top: 20px;
+        color: #ff0015;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>THE SMART IRRIGATION SYSTEM</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>SENSOR NAME</th>
+            <th>SENSOR VALUE</th>
+            <th>SI UNIT</th>
+            <th>VALUE STATUS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HUMIDITY</td>
+            <td>{{humidity}}</td>
+            <td>NTU</td>
+            <td>
+              {% if humidity < 1 %}
+                <span class="status safe">Don'T Irrigate</span>
+              {% else %}
+                <span class="status not-safe">Irrigate</span>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>Temperature</td>
+            <td>{{temperature}}</td>
+            <td>celsius</td>
+            <td>
+              {% if Temp < 6.5 or Temp > 8.5 %}
+                <span class="status not-safe">Irrigate</span>
+              {% else %}
+                <span class="status safe">Don't Irrigate</span>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>SOIL MOISTURE</td>
+            <td>{{moisture}}</td>
+            <td>gm^-3</td>
+            <td>
+              {% if moisture < 50 %}
+                <span class="status not-safe">Irrigate</span>
+              {% else %}
+                <span class="status safe">Don't Irrigate</span>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>WATER LEVEL_TANK</td>
+            <td>{{waterLevel}}</td>
+            <td>cm</td>
+            <td>
+              {% if waterLevel < 70 %}
+                <span class="status not-safe">Pump on</span>
+              {% else %}
+                <span class="status safe">Pump off</span>
+              {% endif %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      {% if humidity >= 25 or Temp < 25 or Temp > 30 or moisture < 50 %}
+        <p class="warning">Irrigation process continues.</p>
+      {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
